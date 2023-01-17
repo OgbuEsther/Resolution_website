@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import pic from "./ASSESTS/hero_banner.png";
+import { AiOutlineArrowUp } from "react-icons/ai";
 const Hero = () => {
+  const [showScroll, setShowScroll] = useState(false);
+
+  const checkScrollTop = () => {
+    if (!showScroll && window.pageYOffset > 400) {
+      setShowScroll(true);
+    } else if (showScroll && window.pageYOffset <= 400) {
+      setShowScroll(false);
+    }
+  };
+
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  window.addEventListener("scroll", checkScrollTop);
   return (
     <div>
       <Container>
@@ -29,6 +45,9 @@ const Hero = () => {
           <Second>
             <Img src={pic} />
           </Second>
+          <Arr onClick={scrollTop}>
+            <AiOutlineArrowUp />
+          </Arr>
         </Card>
       </Container>
     </div>
@@ -36,7 +55,22 @@ const Hero = () => {
 };
 
 export default Hero;
-
+const Arr = styled.div`
+  width: 50px;
+  height: 50px;
+  display: flex;
+  border-radius: 5px;
+  position: fixed;
+  top: 595px;
+  left: 1295px;
+  justify-content: center;
+  align-items: center;
+  font-size: 23px;
+  background-color: #ef1f76;
+  color: white;
+  cursor: pointer;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+`;
 const Img = styled.img`
   height: 100%;
   object-fit: cover;
